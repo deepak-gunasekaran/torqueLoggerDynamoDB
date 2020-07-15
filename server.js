@@ -45,7 +45,7 @@ db.initialize(dbName, collectionName, function (dbCollection) { // successCallba
          // return updated list
          dbCollection.find().toArray((_error, _result) => { // callback of find
             if (_error) throw _error;
-            response.json(_result);
+            response.json('OK!');
          });
       });
    });
