@@ -49,6 +49,7 @@ db.initialize(dbName, collectionName, function (dbCollection) { // successCallba
             if (_error) throw _error;
             response.json('OK!');
             response.status(200);
+            
          });
       });
    });
