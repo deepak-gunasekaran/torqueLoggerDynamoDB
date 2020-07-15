@@ -40,12 +40,15 @@ db.initialize(dbName, collectionName, function (dbCollection) { // successCallba
 
    server.get("/logs", (request, response) => {
       const item = request.query;
+      console.log("req body", request.body);
+      console.log("Request query param is", item);
       dbCollection.insertOne(item, (error, result) => { // callback of insertOne
          if (error) throw error;
          // return updated list
          dbCollection.find().toArray((_error, _result) => { // callback of find
             if (_error) throw _error;
             response.json('OK!');
+            response.status(200);
          });
       });
    });
