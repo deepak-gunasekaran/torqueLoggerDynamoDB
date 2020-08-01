@@ -64,7 +64,7 @@ db.initialize(dbName, collectionName, function (dbCollection) { // successCallba
          dbCollection.find().toArray((_error, _result) => { // callback of find
             if (_error) throw _error;
             //response.json('OK!');
-            response.response('OK!');
+            response.send('OK!');
             response.status(200);
             
          });
