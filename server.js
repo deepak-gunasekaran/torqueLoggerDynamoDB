@@ -54,7 +54,7 @@ db.initialize(dbName, collectionName, function (dbCollection) { // successCallba
       });
    });
 
-   server.get("/upload_data.php", (request, response) => {
+   server.get("/up_data", (request, response) => {
       const item = request.query;
       console.log("req body", request.body);
       console.log("Request query param is", item);
