@@ -20,7 +20,7 @@ db.initialize(dbName, collectionName, function (dbCollection) { // successCallba
    // get all items
    dbCollection.find().toArray(function (err, result) {
       if (err) throw err;
-      console.log(result);
+     // console.log(result);
 
       // << return response to client >>
    });
@@ -56,8 +56,8 @@ db.initialize(dbName, collectionName, function (dbCollection) { // successCallba
 
    server.get("/upload_data.php", (request, response) => {
       const item = request.query;
-      console.log("req body", request.body);
-      console.log("Request query param is", item);
+      //console.log("req body", request.body);
+      //console.log("Request query param is", item);
       dbCollection.insertOne(item, (error, result) => { // callback of insertOne
          if (error) throw error;
          // return updated list
