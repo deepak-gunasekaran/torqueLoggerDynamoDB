@@ -42,6 +42,8 @@ const port = 4000;
 // snippet-start:[dynamodb.JavaScript.docClient.put]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
+const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 // Set the region 
 AWS.config.update({region: 'us-east-1'});
 //var TABLE = 'Torque';
@@ -54,11 +56,13 @@ AWS.config.update({region: 'us-east-1'});
 //console.log("test1")
 
 // Create DynamoDB document client
-var docClient = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
 //Table table = dynamo.getTable("people");
 
 
+const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 
+var docClient = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
 
 //console.log("test2")
 
@@ -84,8 +88,6 @@ var params = {
 docClient.put(params, function(err, data) {
   if (err) {
     console.log("Error", err);            
-    console.log("AWSACCESS", AWS_ACCESS_KEY_ID);            
-    console.log("AWSSECRET", AWS_SECRET_ACCESS_KEY);            
     response.json('Screwed!');
     response.status(200);
   } else {
