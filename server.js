@@ -82,7 +82,7 @@ var params = {
   
   //}
 };
-
+console.log(AWS.config);
 docClient.put(params, function(err, data) {
   if (err) {
     console.log("Error", err);            
