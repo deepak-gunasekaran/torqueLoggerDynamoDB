@@ -42,8 +42,8 @@ AWS.config.update({
 // snippet-start:[dynamodb.JavaScript.docClient.put]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
-const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+#const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+#const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 // Set the region 
 #AWS.config.update({region: 'us-east-1'});
 //var TABLE = 'Torque';
