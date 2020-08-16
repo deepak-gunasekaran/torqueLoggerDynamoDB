@@ -42,7 +42,7 @@ spec:
       containers:
       - name: torqueloggerdynamodb
         image: deepakdpk6/torqueloggerdynamodb:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         envFrom:
               - secretRef:
                   name: aws-secrets
