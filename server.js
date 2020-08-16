@@ -59,8 +59,6 @@ AWS.config.update({region: 'us-east-1'});
 //Table table = dynamo.getTable("people");
 
 
-const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
-const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 
 var docClient = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
 
