@@ -19,15 +19,13 @@ metadata:
   name: torqueloggerdynamodb
 spec:
   hosts:
-  - yamini.msvd.party
+  - deepak.msvd.party
   gateways:
   - istio-http-gateway
   http:
   - match:
     - uri:
-        prefix: /torquedynamodb
-    rewrite:
-      uri: "/logs"
+        prefix: /logs
     route:
     - destination:
         host: torqueloggerdynamodb

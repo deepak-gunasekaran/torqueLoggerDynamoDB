@@ -64,8 +64,8 @@ var docClient = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
 
 server.get("/logs", (request, response) => {
 const item = request.query;
-//console.log("req body", request.body);
-//console.log("Request query param is", item);
+console.log("req body", request.body);
+console.log("Request query param is", item);
 //});
 var table = 'torque';
 
@@ -84,8 +84,8 @@ var params = {
 docClient.put(params, function(err, data) {
   if (err) {
     console.log("Error", err);            
-    console.log("AWSACCESS", AWS_ACCESS_KEY_ID);            
-    console.log("AWSSECRET", AWS_SECRET_ACCESS_KEY);            
+//    console.log("AWSACCESS", AWS_ACCESS_KEY_ID);            
+//   console.log("AWSSECRET", AWS_SECRET_ACCESS_KEY);            
     response.json('Screwed!');
     response.status(200);
   } else {
