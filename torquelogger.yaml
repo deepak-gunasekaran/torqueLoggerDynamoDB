@@ -1,55 +1,55 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: torquelogger
+  name: torqueloggerdynamodb
   labels:
-    app: torquelogger
-    service: torquelogger
+    app: torqueloggerdynamodb
+    service: torqueloggerdynamodb
 spec:
   ports:
   - port: 4000
     name: http
   selector:
-    app: torquelogger
+    app: torqueloggerdynamodb
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: torquelogger
+  name: torqueloggerdynamodb
   labels:
-    account: torquelogger
+    account: torqueloggerdynamodb
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: torquelogger-v1
+  name: torqueloggerdynamodb-v1
   labels:
-    app: torquelogger
+    app: torqueloggerdynamodb
     version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: torquelogger
+      app: torqueloggerdynamodb
       version: v1
   template:
     metadata:
       labels:
-        app: torquelogger
+        app: torqueloggerdynamodb
         version: v1
     spec:
-      serviceAccountName: torquelogger
+      serviceAccountName: torqueloggerdynamodb
       containers:
-      - name: torquelogger
-        image: deepakdpk6/torquelogger:latest
+      - name: torqueloggerdynamodb
+        image: deepakdpk6/torqueloggerdynamodb:latest
         imagePullPolicy: IfNotPresent
         envFrom:
               - secretRef:
-                  name: database-secret-config
+                  name: aws-secrets
         ports:
         - containerPort: 4000
         resources:
           limits:
-            cpu: 50m
+            cpu: 500m
           requests:
-            cpu: 20m
+            cpu: 200m
