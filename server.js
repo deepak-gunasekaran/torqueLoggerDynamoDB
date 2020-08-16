@@ -82,9 +82,10 @@ var params = {
   
   //}
 };
-console.log(AWS.config);
+//console.log(AWS.config);
 docClient.put(params, function(err, data) {
   if (err) {
+    console.log(AWS.config);
     console.log("Error", err);            
     response.json('Screwed!');
     response.status(200);
