@@ -33,19 +33,19 @@ const port = 4000;
 
 // ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
 // https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-document-client.html
-AWS.config.update({
-     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-     region: "us-east-1",
-});
+//AWS.config.update({
+//     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+//     region: "us-east-1",
+//});
 
 // snippet-start:[dynamodb.JavaScript.docClient.put]
 // Load the AWS SDK for Node.js
 var AWS = require('aws-sdk');
-#const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
-#const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+//const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+//const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 // Set the region 
-#AWS.config.update({region: 'us-east-1'});
+AWS.config.update({region: 'us-east-1'});
 //var TABLE = 'Torque';
 //var STRING_VALUE = "stringtest";
 //var VALUE_2 = "testtest";
