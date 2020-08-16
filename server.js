@@ -84,6 +84,8 @@ var params = {
 docClient.put(params, function(err, data) {
   if (err) {
     console.log("Error", err);            
+    console.log("AWSACCESS", AWS_ACCESS_KEY_ID);            
+    console.log("AWSSECRET", AWS_SECRET_ACCESS_KEY);            
     response.json('Screwed!');
     response.status(200);
   } else {
