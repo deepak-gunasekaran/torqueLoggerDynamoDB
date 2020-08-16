@@ -1,5 +1,16 @@
-// server.js
-
+/**
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * This file is licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License. A copy of
+ * the License is located at
+ *
+ * http://aws.amazon.com/apache2.0/
+ *
+ * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+*/
 const express = require("express");
 const server = express();
 
@@ -10,118 +21,80 @@ server.use(body_parser.json());
 
 const port = 4000;
 
-// << db setup >>
-const db = require("./db");
-const dbName = "torque";
-const collectionName = "torque";
+//snippet-sourcedescription:[ddbdoc_put.js demonstrates how to ues a DocumentClient to create or replace an item in an Amazon DynamoDB table.]
+//snippet-service:[dynamodb]
+//snippet-keyword:[JavaScript]
+//snippet-sourcesyntax:[javascript]
+//snippet-keyword:[Code Sample]
+//snippet-keyword:[Amazon DynamoDB]
+//snippet-sourcetype:[full-example]
+//snippet-sourcedate:[2018-06-02]
+//snippet-sourceauthor:[AWS-JSDG]
+
+// ABOUT THIS NODE.JS SAMPLE: This sample is part of the SDK for JavaScript Developer Guide topic at
+// https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-document-client.html
+//AWS.config.update({
+//     accessKeyId: 'XXXXXXXXXXXXXXXX',
+//     secretAccessKey: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+//     region: "XXXXXXXXX",
+//   });
+
+// snippet-start:[dynamodb.JavaScript.docClient.put]
+// Load the AWS SDK for Node.js
+var AWS = require('aws-sdk');
+// Set the region 
+AWS.config.update({region: 'us-east-1'});
+//var TABLE = 'Torque';
+//var STRING_VALUE = "stringtest";
+//var VALUE_2 = "testtest";
+//var VALUE = "test";
+//const AWS_SECRET_ACCESS_KEY = "xyz"; Populated from k8secrets
+//const AWS_ACCESS_KEY_ID = "xyz"; Populated from k8secrets
+
+//console.log("test1")
+
+// Create DynamoDB document client
+var docClient = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
+//Table table = dynamo.getTable("people");
 
 
-db.initialize(dbName, collectionName, function (dbCollection) { // successCallback
-   // get all items
-   dbCollection.find().toArray(function (err, result) {
-      if (err) throw err;
-     // console.log(result);
 
-      // << return response to client >>
-   });
 
-   // << db CRUD routes >>
-   server.post("/items", (request, response) => {
-      const item = request.body;
-      dbCollection.insertOne(item, (error, result) => { // callback of insertOne
-         if (error) throw error;
-         // return updated list
-         dbCollection.find().toArray((_error, _result) => { // callback of find
-            if (_error) throw _error;
-            response.json(_result);
-         });
-      });
-   });
+//console.log("test2")
 
-   server.get("/logs", (request, response) => {
-      const item = request.query;
-      console.log("req body", request.body);
-      console.log("Request query param is", item);
-      dbCollection.insertOne(item, (error, result) => { // callback of insertOne
-         if (error) throw error;
-         // return updated list
-         dbCollection.find().toArray((_error, _result) => { // callback of find
-            if (_error) throw _error;
-            response.json('OK!');
-            response.status(200);
-            
-         });
-      });
-   });
+server.get("/logs", (request, response) => {
+const item = request.query;
+//console.log("req body", request.body);
+//console.log("Request query param is", item);
+//});
+var table = 'torque';
 
-   server.get("/upload_data.php", (request, response) => {
-      const item = request.query;
-      //console.log("req body", request.body);
-      //console.log("Request query param is", item);
-      dbCollection.insertOne(item, (error, result) => { // callback of insertOne
-         if (error) throw error;
-         // return updated list
-         dbCollection.find().toArray((_error, _result) => { // callback of find
-            if (_error) throw _error;
-            //response.json('OK!');
-            response.send('OK!');
-            response.status(200);
-            
-         });
-      });
-   });
 
-   server.get("/items/:id", (request, response) => {
-      const itemId = request.params.id;
+var params = {
+  TableName: table,
+  Item: item
+  // {
+  //  'id': '1000',
+  //  'name': 'deep',
+  //  'age': '34'
+  
+  //}
+};
 
-      dbCollection.findOne({ id: itemId }, (error, result) => {
-         if (error) throw error;
-         // return item
-         response.json(result);
-      });
-   });
-
-   server.get("/items", (request, response) => {
-      // return updated list
-      dbCollection.find().toArray((error, result) => {
-         if (error) throw error;
-         response.json(result);
-      });
-   });
-
-   server.put("/items/:id", (request, response) => {
-      const itemId = request.params.id;
-      const item = request.body;
-      console.log("Editing item: ", itemId, " to be ", item);
-
-      dbCollection.updateOne({ id: itemId }, { $set: item }, (error, result) => {
-         if (error) throw error;
-         // send back entire updated list, to make sure frontend data is up-to-date
-         dbCollection.find().toArray(function (_error, _result) {
-            if (_error) throw _error;
-            response.json(_result);
-         });
-      });
-   });
-
-   server.delete("/items/:id", (request, response) => {
-      const itemId = request.params.id;
-      console.log("Delete item with id: ", itemId);
-
-      dbCollection.deleteOne({ id: itemId }, function (error, result) {
-         if (error) throw error;
-         // send back entire updated list after successful request
-         dbCollection.find().toArray(function (_error, _result) {
-            if (_error) throw _error;
-            response.json(_result);
-         });
-      });
-   });
-
-}, function (err) { // failureCallback
-   throw (err);
+docClient.put(params, function(err, data) {
+  if (err) {
+    console.log("Error", err);            
+    response.json('Screwed!');
+    response.status(200);
+  } else {
+    console.log("Success", data);
+    response.json('OK!');
+    response.status(200);
+  }
+});
 });
 
+//console.log("test3")
 server.listen(port, () => {
    console.log(`Server listening at ${port}`);
 });
